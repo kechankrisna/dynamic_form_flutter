@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../functions.dart';
 
 class SimpleListCheckbox extends StatefulWidget {
-  SimpleListCheckbox({
+  const SimpleListCheckbox({
     Key? key,
     required this.item,
     required this.onChange,
@@ -22,7 +22,7 @@ class SimpleListCheckbox extends StatefulWidget {
   final Map keyboardTypes;
 
   @override
-  _SimpleListCheckbox createState() => new _SimpleListCheckbox();
+  _SimpleListCheckbox createState() => _SimpleListCheckbox();
 }
 
 class _SimpleListCheckbox extends State<SimpleListCheckbox> {
@@ -51,15 +51,15 @@ class _SimpleListCheckbox extends State<SimpleListCheckbox> {
   Widget build(BuildContext context) {
     List<Widget> checkboxes = [];
     if (Fun.labelHidden(item)) {
-      checkboxes.add(new Text(item['label'],
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)));
+      checkboxes.add(Text(item['label'],
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)));
     }
     for (var i = 0; i < item['items'].length; i++) {
       checkboxes.add(
-        new Row(
+        Row(
           children: <Widget>[
-            new Expanded(child: new Text(item['items'][i]['label'])),
-            new Checkbox(
+            Expanded(child: Text(item['items'][i]['label'])),
+            Checkbox(
               value: item['items'][i]['value'],
               onChanged: (bool? value) {
                 this.setState(
@@ -80,8 +80,8 @@ class _SimpleListCheckbox extends State<SimpleListCheckbox> {
         ),
       );
     }
-    return new Container(
-      margin: new EdgeInsets.only(top: 5.0),
+    return Container(
+      margin: EdgeInsets.only(top: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: checkboxes,

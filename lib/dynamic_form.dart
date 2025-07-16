@@ -4,6 +4,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+export 'utils/container_serializer.dart';
+export 'utils/input_decoration_serializer.dart';
+export 'utils/icon_serializer.dart';
+
 class CoreForm extends StatefulWidget {
   final String form;
   final dynamic formMap;

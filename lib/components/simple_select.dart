@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../functions.dart';
 
 class SimpleSelect extends StatefulWidget {
-  SimpleSelect({
+  const SimpleSelect({
     Key? key,
     required this.item,
     required this.onChange,
@@ -22,7 +22,7 @@ class SimpleSelect extends StatefulWidget {
   final Map keyboardTypes;
 
   @override
-  _SimpleSelect createState() => new _SimpleSelect();
+  _SimpleSelect createState() => _SimpleSelect();
 }
 
 class _SimpleSelect extends State<SimpleSelect> {
@@ -45,17 +45,17 @@ class _SimpleSelect extends State<SimpleSelect> {
   Widget build(BuildContext context) {
     Widget label = SizedBox.shrink();
     if (Fun.labelHidden(item)) {
-      label = new Text(item['label'],
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0));
+      label = Text(item['label'],
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0));
     }
-    return new Container(
-      margin: new EdgeInsets.only(top: 5.0),
+    return Container(
+      margin: EdgeInsets.only(top: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           label,
-          new DropdownButton<String>(
-            hint: new Text("Select a user"),
+          DropdownButton<String>(
+            hint: Text("Select a user"),
             value: item['value'],
             onChanged: (String? newValue) {
               setState(() {
@@ -66,9 +66,9 @@ class _SimpleSelect extends State<SimpleSelect> {
             items: item['items'].map<DropdownMenuItem<String>>((dynamic data) {
               return DropdownMenuItem<String>(
                 value: data['value'],
-                child: new Text(
+                child: Text(
                   data['label'],
-                  style: new TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.black),
                 ),
               );
             }).toList(),

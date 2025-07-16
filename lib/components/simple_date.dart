@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../functions.dart';
 
 class SimpleDate extends StatefulWidget {
-  SimpleDate({
+  const SimpleDate({
     Key? key,
     required this.item,
     required this.onChange,
@@ -22,7 +22,7 @@ class SimpleDate extends StatefulWidget {
   final Map keyboardTypes;
 
   @override
-  _SimpleDate createState() => new _SimpleDate();
+  _SimpleDate createState() => _SimpleDate();
 }
 
 class _SimpleDate extends State<SimpleDate> {
@@ -38,27 +38,27 @@ class _SimpleDate extends State<SimpleDate> {
   Widget build(BuildContext context) {
     Widget label = SizedBox.shrink();
     if (Fun.labelHidden(item)) {
-      label = new Container(
-        child: new Text(
+      label = Container(
+        child: Text(
           item['label'],
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
         ),
       );
     }
-    return new Container(
-      margin: new EdgeInsets.only(top: 5.0),
-      child: new Column(
+    return Container(
+      margin: EdgeInsets.only(top: 5.0),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           label,
-          new Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               InkWell(
                   // onTap: () {
                   //   selectDate();
                   // },
-                  child: new TextFormField(
+                  child: TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
                   //border: OutlineInputBorder(),

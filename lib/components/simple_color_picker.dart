@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../functions.dart';
 import '../utils/input_decoration_serializer.dart';
 
-class SimpleText extends StatefulWidget {
-  const SimpleText({
+class SimpleColorPicker extends StatefulWidget {
+  const SimpleColorPicker({
     Key? key,
     required this.item,
     required this.onChange,
@@ -23,17 +24,35 @@ class SimpleText extends StatefulWidget {
   final Map keyboardTypes;
 
   @override
-  _SimpleText createState() => _SimpleText();
+  _SimpleColorPicker createState() => _SimpleColorPicker();
 }
 
-class _SimpleText extends State<SimpleText> {
+class _SimpleColorPicker extends State<SimpleColorPicker> {
   dynamic item;
+  late TextEditingController textController;
 
   String? isRequired(item, value) {
     if (value.isEmpty) {
       return widget.errorMessages[item['key']] ?? 'Please enter some text';
     }
     return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    item = widget.item;
+    textController = TextEditingController(text: item['value']);
+  }
+
+  // Helper function to convert hex string to Color
+  Color hexToColor(String hex) {
+    return Color(int.parse(hex.replaceAll('#', '0xFF')));
+  }
+
+  // Helper function to convert Color to hex string
+  String colorToHex(Color color) {
+    return '#${color.value.toRadixString(16).substring(2).toUpperCase()}';
   }
 
   // Helper method to get InputDecoration from various sources
@@ -74,14 +93,21 @@ class _SimpleText extends State<SimpleText> {
     return InputDecoration(
       hintText: item['placeholder'] ?? "",
       helperText: item['helpText'] ?? "",
+      prefixIcon: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: hexToColor(item['value'] ?? "#25a970"),
+        ),
+        width: 34,
+        height: 34,
+      ),
     );
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    item = widget.item;
+  void dispose() {
+    textController.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,9 +128,45 @@ class _SimpleText extends State<SimpleText> {
         children: <Widget>[
           label,
           TextFormField(
-            controller: null,
-            initialValue: item['value'] ?? null,
+            onTap: () {
+              // Open color picker dialog
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Select Color'),
+                    content: SingleChildScrollView(
+                      child: ColorPicker(
+                        pickerColor: item['value'] != null
+                            ? hexToColor(item['value'])
+                            : hexToColor("#25a970"),
+                        onColorChanged: (Color color) {
+                          setState(() {
+                            item['value'] = colorToHex(color);
+                          });
+                          widget.onChange(widget.position, colorToHex(color));
+                          setState(() {
+                            textController.text = item['value'] ?? '';
+                          });
+                        },
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Close'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            controller: textController,
+            // initialValue: item['value'] ?? null,
             decoration: _getInputDecoration(),
+            
             maxLines: item['type'] == "TextArea" ? 10 : 1,
             onChanged: (String value) {
               item['value'] = value;

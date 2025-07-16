@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../functions.dart';
 
 class SimpleRadios extends StatefulWidget {
-  SimpleRadios({
+  const SimpleRadios({
     Key? key,
     required this.item,
     required this.onChange,
@@ -21,7 +21,7 @@ class SimpleRadios extends StatefulWidget {
   final Map keyboardTypes;
 
   @override
-  _SimpleRadios createState() => new _SimpleRadios();
+  _SimpleRadios createState() => _SimpleRadios();
 }
 
 class _SimpleRadios extends State<SimpleRadios> {
@@ -46,16 +46,16 @@ class _SimpleRadios extends State<SimpleRadios> {
     List<Widget> radios = [];
 
     if (Fun.labelHidden(item)) {
-      radios.add(new Text(item['label'],
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)));
+      radios.add(Text(item['label'],
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)));
     }
     radioValue = item['value'];
     for (var i = 0; i < item['items'].length; i++) {
       radios.add(
-        new Row(
+        Row(
           children: <Widget>[
-            new Expanded(child: new Text(item['items'][i]['label'])),
-            new Radio<dynamic>(
+            Expanded(child: Text(item['items'][i]['label'])),
+            Radio<dynamic>(
                 value: item['items'][i]['value'],
                 groupValue: radioValue,
                 onChanged: (dynamic value) {
@@ -69,8 +69,8 @@ class _SimpleRadios extends State<SimpleRadios> {
         ),
       );
     }
-    return new Container(
-      margin: new EdgeInsets.only(top: 5.0),
+    return Container(
+      margin: EdgeInsets.only(top: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: radios,

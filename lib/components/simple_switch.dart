@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SimpleSwitch extends StatefulWidget {
-  SimpleSwitch({
+  const SimpleSwitch({
     Key? key,
     required this.item,
     required this.onChange,
@@ -20,7 +20,7 @@ class SimpleSwitch extends StatefulWidget {
   final Map keyboardTypes;
 
   @override
-  _SimpleSwitch createState() => new _SimpleSwitch();
+  _SimpleSwitch createState() => _SimpleSwitch();
 }
 
 class _SimpleSwitch extends State<SimpleSwitch> {
@@ -46,11 +46,11 @@ class _SimpleSwitch extends State<SimpleSwitch> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Container(
-      margin: new EdgeInsets.only(top: 5.0),
-      child: new Row(children: <Widget>[
-        new Expanded(child: new Text(item['label'])),
-        new Switch(
+    return Container(
+      margin: EdgeInsets.only(top: 5.0),
+      child: Row(children: <Widget>[
+        Expanded(child: Text(item['label'])),
+        Switch(
           value: item['value'] ?? false,
           onChanged: (bool value) {
             this.setState(() {

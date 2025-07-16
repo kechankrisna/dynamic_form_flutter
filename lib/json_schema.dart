@@ -33,7 +33,7 @@ class JsonSchema extends StatefulWidget {
 
   @override
   _CoreFormState createState() =>
-      new _CoreFormState(formMap ?? json.decode(form!));
+      _CoreFormState(formMap ?? json.decode(form!));
 }
 
 class _CoreFormState extends State<JsonSchema> {
@@ -47,13 +47,13 @@ class _CoreFormState extends State<JsonSchema> {
     if (formGeneral['title'] != null) {
       listWidget.add(Text(
         formGeneral['title'],
-        style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ));
     }
     if (formGeneral['description'] != null) {
       listWidget.add(Text(
         formGeneral['description'],
-        style: new TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic),
+        style: TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic),
       ));
     }
 
@@ -84,6 +84,17 @@ class _CoreFormState extends State<JsonSchema> {
           ),
         );
         continue;
+      }
+      if (item['type'] == "ColorPicker") {
+        listWidget.add(SimpleColorPicker(
+          item: item,
+          onChange: onChange,
+          position: count,
+          decorations: widget.decorations,
+          errorMessages: widget.errorMessages,
+          validations: widget.validations,
+          keyboardTypes: widget.keyboardTypes,
+        ));
       }
 
       if (item['type'] == "Input" ||
@@ -164,7 +175,7 @@ class _CoreFormState extends State<JsonSchema> {
     }
 
     if (widget.buttonSave != null && widget.actionSave != null) {
-      listWidget.add(new Container(
+      listWidget.add(Container(
         margin: EdgeInsets.only(top: 10.0),
         child: InkWell(
           onTap: () {
