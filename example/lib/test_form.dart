@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:dynamic_form/json_schema.dart';
+import 'package:dynamic_form_plus/json_schema.dart';
 
 class TestForm extends StatefulWidget {
   const TestForm({Key? key}) : super(key: key);
