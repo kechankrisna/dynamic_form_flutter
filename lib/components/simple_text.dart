@@ -95,6 +95,7 @@ class _SimpleText extends State<SimpleText> {
         ),
       );
     }
+    final bool isTextArea = item['type'] == "TextArea";
     return Container(
       margin: EdgeInsets.only(top: 5.0),
       child: Column(
@@ -105,7 +106,7 @@ class _SimpleText extends State<SimpleText> {
             controller: null,
             initialValue: item['value'] ?? null,
             decoration: _getInputDecoration(),
-            maxLines: item['type'] == "TextArea" ? 10 : 1,
+            maxLines: isTextArea ? 10 : 1,
             onChanged: (String value) {
               item['value'] = value;
               // _handleChanged();
@@ -115,7 +116,7 @@ class _SimpleText extends State<SimpleText> {
             obscureText: item['type'] == "Password" ? true : false,
             keyboardType: item['keyboardType'] ??
                 widget.keyboardTypes[item['key']] ??
-                TextInputType.text,
+                (isTextArea ? TextInputType.multiline : TextInputType.text),
             validator: (value) {
               if (widget.validations.containsKey(item['key'])) {
                 return widget.validations[item['key']](item, value);
