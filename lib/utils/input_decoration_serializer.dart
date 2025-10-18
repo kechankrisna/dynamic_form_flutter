@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:dynamic_form/dynamic_form.dart';
-import 'package:dynamic_form/utils/container_serializer.dart';
+import 'package:dynamic_form_plus/dynamic_form_plus.dart';
+import 'package:dynamic_form_plus/utils/container_serializer.dart';
 import 'package:flutter/material.dart';
 
 class InputDecorationSerializer {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:dynamic_form/json_schema.dart';
+import 'package:dynamic_form_plus/json_schema.dart';
 
 class TestForm extends StatefulWidget {
   const TestForm({Key? key}) : super(key: key);
@@ -25,15 +25,6 @@ class _TestFormState extends State<TestForm> {
         "decoration": {
           "labelText": "Name",
           "hintText": "Please enter the name",
-          "prefixIcon": {
-            "type": "Icon",
-            "icon": {
-              "codePoint": 57941,
-              "fontFamily": "MaterialIcons",
-            },
-            "size": 28.0,
-            "color": 4280391411,
-          },
         }
       },
       {
@@ -46,14 +37,6 @@ class _TestFormState extends State<TestForm> {
         
       },
       {
-        "key": "image_url",
-        "type": "Input",
-        "label": "Image URL",
-        "placeholder": "Please enter the image URL",
-        "value": "",
-        "required": false
-      },
-      {
         "key": "facebook_link",
         "type": "Input",
         "label": "Facebook Link",
@@ -63,15 +46,6 @@ class _TestFormState extends State<TestForm> {
         "decoration": {
           "labelText": "Description",
           "hintText": "Please enter the description",
-          "prefixIcon": {
-            "type": "Icon",
-            "icon": {
-              "codePoint": 57522,
-              "fontFamily": "MaterialIcons",
-            },
-            "size": 28.0,
-            "color": 4280391411,
-          },
         }
       },
       {
@@ -80,7 +54,11 @@ class _TestFormState extends State<TestForm> {
         "label": "Instagram Link",
         "placeholder": "Please enter the Instagram link",
         "value": "",
-        "required": false
+        "required": false,
+        "decoration": {
+          "labelText": "Description",
+          "hintText": "Please enter the description",
+        }
       },
       {
         "key": "twitter_link",
@@ -220,13 +198,17 @@ class _TestFormState extends State<TestForm> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            TextFormField(
+              minLines: 2,
+              maxLines: 5,
+            ),
             JsonSchema(
               form: form,
               onChanged: (dynamic response) {
                 print(jsonEncode(response));
               },
               actionSave: (data) {
-                // print(jsonEncode(data));
+                print(jsonEncode(data));
                 var value = jsonDecode(jsonEncode(data));
                 var fields = value['fields'];
                 print(fields);
